@@ -1,5 +1,4 @@
 ---
 title: Third post
 ---
-Hallo Chen Xi.
-Cao ni.
+Chen Xi was here.
