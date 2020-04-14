@@ -1,0 +1,31 @@
+name: CD
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    name: Generate and publish weblog to GitHub Pages
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Generate weblog from Markdown files
+      uses: timaa2k/markdown-weblog-builder-action@master
+
+    - name: Commit generated HTML to gh-pages
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'github-action@users.noreply.github.com'
+        git clone https://github.com/${TARGET_GITHUB_REPO} /generated
+        cd /generated
+        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${TARGET_GITHUB_REPO}
+        git checkout ${TARGET_GITHUB_REF}
+        mv ${GITHUB_WORKSPACE}/result/* .
+        git commit -am "GitHub Action: Publish weblog"
+        git push
+      env:
+        TARGET_GITHUB_REPO: timaa2k/weblog-generated
+        TARGET_GITHUB_REF: master
