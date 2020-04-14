@@ -17,17 +17,14 @@ jobs:
 
     - name: Commit generated HTML to gh-pages
       run: |
+        git clone https://github.com/${TARGET_GITHUB_REPO} ./out && cd ./out
+        git checkout ${TARGET_GITHUB_REF}
+        cp -r ../result/* .
         git config --global user.name 'GitHub Action'
         git config --global user.email 'github-action@users.noreply.github.com'
-        git clone https://github.com/${TARGET_GITHUB_REPO} generated
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${TARGET_GITHUB_REPO}
-        git checkout ${TARGET_GITHUB_REF}
-        chmod +rw generated
-        pwd && ls -all
-        ls -all result
-        ls -all generated
-        cp -r result/* generated/
-        git commit -am "GitHub Action: Publish weblog"
+        git add -A
+        git commit -m "GitHub Action: Publish weblog"
         git push
       env:
         TARGET_GITHUB_REPO: timaa2k/weblog-generated
