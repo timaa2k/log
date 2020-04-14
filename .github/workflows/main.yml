@@ -23,6 +23,9 @@ jobs:
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${TARGET_GITHUB_REPO}
         git checkout ${TARGET_GITHUB_REF}
         chmod +rw generated
+        pwd && ls -all
+        ls -all result
+        ls -all generated
         mv result/* generated/
         git commit -am "GitHub Action: Publish weblog"
         git push
