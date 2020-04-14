@@ -19,11 +19,10 @@ jobs:
       run: |
         git config --global user.name 'GitHub Action'
         git config --global user.email 'github-action@users.noreply.github.com'
-        git clone https://github.com/${TARGET_GITHUB_REPO} /generated
-        cd /generated
+        git clone https://github.com/${TARGET_GITHUB_REPO} generated
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${TARGET_GITHUB_REPO}
         git checkout ${TARGET_GITHUB_REF}
-        mv ${GITHUB_WORKSPACE}/result/* .
+        mv ./result/* ./generated/
         git commit -am "GitHub Action: Publish weblog"
         git push
       env:
