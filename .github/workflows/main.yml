@@ -22,7 +22,8 @@ jobs:
         git clone https://github.com/${TARGET_GITHUB_REPO} generated
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${TARGET_GITHUB_REPO}
         git checkout ${TARGET_GITHUB_REF}
-        mv ./result/* ./generated/
+        chmod +rw generated
+        mv result/* generated/
         git commit -am "GitHub Action: Publish weblog"
         git push
       env:
