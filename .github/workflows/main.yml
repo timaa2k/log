@@ -17,8 +17,8 @@ jobs:
 
     - name: Commit generated HTML to gh-pages
       run: |
-        git config --global user.name 'GitHub Action'
-        git config --global user.email 'github-action@users.noreply.github.com'
+        git config --global user.name 'timaa2k'
+        git config --global user.email 'timaa2k@users.noreply.github.com'
         git clone https://github.com/${TARGET_GITHUB_REPO} ./out && cd ./out
         git switch -c ${TARGET_GITHUB_REF}
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${TARGET_GITHUB_REPO}
