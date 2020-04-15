@@ -19,15 +19,17 @@ jobs:
 
     - name: Commit generated HTML to gh-pages
       run: |
-        git config --global user.name 'timaa2k'
-        git config --global user.email 'timaa2k@users.noreply.github.com'
-        git clone https://github.com/${TARGET_GITHUB_REPO} ./out && cd ./out
-        git checkout -B ${TARGET_GITHUB_REF}
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        target_repo=${{ github.actor }}.github.io
+        branch=${GITHUB_REF##*/}
+        if [[ ! $branch = "master" ]]; then
+          target_repo=$branch
+        fi
+        git clone "https://github.com/${{ github.actor }}/${target_repo}" ./out && cd ./out
+        git checkout -B master
         git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${TARGET_GITHUB_REPO}
         cp -r ../result/* .
         git add -A
-        git commit -m "GitHub Action: Publish weblog"
+        git commit -m "GitHub Action: Publish web log"
         git push
-      env:
-        TARGET_GITHUB_REPO: timaa2k/dev
-        TARGET_GITHUB_REF: master
