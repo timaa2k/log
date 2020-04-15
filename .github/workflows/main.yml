@@ -12,19 +12,22 @@ jobs:
     name: Generate and publish weblog to GitHub Pages
 
     steps:
+
     - uses: actions/checkout@v2
       with:
         persist-credentials: false
 
     - name: Generate weblog from Markdown files
       uses: timaa2k/markdown-weblog-builder-action@master
+      with:
+        basepath: /dev
 
     - name: Commit generated HTML to gh-pages
       run: |
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-        target_repo=${{ github.actor }}.github.io
         branch=${GITHUB_REF##*/}
+        target_repo=${{ github.actor }}.github.io
         if [[ ! $branch = "master" ]]; then
           target_repo=$branch
         fi
