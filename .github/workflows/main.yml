@@ -11,6 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        persist-credentials: false
 
     - name: Generate weblog from Markdown files
       uses: timaa2k/markdown-weblog-builder-action@master
