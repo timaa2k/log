@@ -29,5 +29,5 @@ jobs:
         git commit -m "GitHub Action: Publish weblog"
         git push
       env:
-        TARGET_GITHUB_REPO: timaa2k/weblog-generated
+        TARGET_GITHUB_REPO: timaa2k/public
         TARGET_GITHUB_REF: master
