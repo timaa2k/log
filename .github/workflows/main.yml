@@ -22,7 +22,7 @@ jobs:
         git config --global user.name 'timaa2k'
         git config --global user.email 'timaa2k@users.noreply.github.com'
         git clone https://github.com/${TARGET_GITHUB_REPO} ./out && cd ./out
-        git switch -c ${TARGET_GITHUB_REF}
+        git checkout -b ${TARGET_GITHUB_REF}
         git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${TARGET_GITHUB_REPO}
         cp -r ../result/* .
         git add -A
