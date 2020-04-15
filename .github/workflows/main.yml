@@ -28,9 +28,9 @@ jobs:
         if [[ ! $branch = "master" ]]; then
           target_repo=$branch
         fi
-        git clone "https://github.com/${{ github.actor }}/${target_repo}" ./out && cd ./out
+        git clone https://github.com/${{ github.actor }}/${target_repo} ./out && cd ./out
         git checkout -B master
-        git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${TARGET_GITHUB_REPO}
+        git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.actor }}/${target_repo}
         cp -r ../result/* .
         git add -A
         git commit -m "GitHub Action: Publish web log"
